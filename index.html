@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compression Comparison Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <h1>Image Compression Comparison Tool</h1>
+            <p class="subtitle">Upload an image, compare compression levels, and view file size, quality, and compression statistics.</p>
+        </header>
+
+        <!-- Control Panel Section -->
+        <section class="control-panel">
+            <div class="control-group">
+                <label for="imageLoader" class="custom-file-upload">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                    Upload Image
+                </label>
+                <input type="file" id="imageLoader" accept="image/jpeg, image/png, image/webp" />
+                <span id="fileNameDisplay" class="file-name-text">No Image Selected</span>
+            </div>
+
+            <div class="control-group">
+                <label for="codecSelect" class="panel-label">Image Format:</label>
+                <select id="codecSelect" class="styled-select" disabled>
+                    <option value="image/jpeg">JPEG (Standard Lossy)</option>
+                    <option value="image/webp">WebP (Modern Optimized)</option>
+                </select>
+            </div>
+
+            <div class="control-group slider-container">
+                <label for="qualitySlider" class="panel-label">Compression Quality:</label>
+                <input type="range" id="qualitySlider" min="0.01" max="1.00" step="0.01" value="0.75" disabled>
+                <output id="qualityOutput" for="qualitySlider">75%</output>
+            </div>
+
+            <button id="downloadLink" class="action-btn" disabled>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Download Compressed Image
+            </button>
+        </section>
+
+        <!-- Dynamic Quality Assessment Banner -->
+        <div id="qualityTierBanner" class="tier-banner hidden">
+            <span>Compression Rating: </span><strong id="qualityTierText">-</strong>
+        </div>
+
+        <!-- Information Cards Grid -->
+        <section class="information-cards">
+            <!-- Card 1: Image Information -->
+            <div class="info-card">
+                <h3>Image Information</h3>
+                <div class="metric-row"><span>Image Dimensions</span><strong id="mDimensions">-</strong></div>
+                <div class="metric-row"><span>Image Resolution</span><strong id="mResolution">-</strong></div>
+                <div class="metric-row"><span>Total Pixels</span><strong id="mPixelCount">-</strong></div>
+                <div class="metric-row"><span>Original Format</span><strong id="mOrigFormat">-</strong></div>
+                <div class="metric-row"><span>Compression Time</span><strong id="mComputeTime">-</strong></div>
+            </div>
+
+            <!-- Card 2: Compression Details -->
+            <div class="info-card">
+                <h3>Compression Details</h3>
+                <div class="metric-row"><span>Original File Size</span><strong id="mOrigSize">-</strong></div>
+                <div class="metric-row"><span>Compressed File Size</span><strong id="mCompSize">-</strong></div>
+                <div class="metric-row"><span>Compression Format</span><strong id="mCompFormat">-</strong></div>
+                <div class="metric-row"><span>Compression Ratio</span><strong id="mRatio">-</strong></div>
+                <div class="metric-row"><span>File Size Saved</span><strong id="mSpaceSaved" class="text-success">-</strong></div>
+                <div class="metric-row"><span>Compression Percentage</span><strong id="mCompPercentage" class="text-success">-</strong></div>
+            </div>
+
+            <!-- Card 3: Quality Information -->
+            <div class="info-card">
+                <h3>Quality Information</h3>
+                <div class="metric-row"><span>Image Quality</span><strong id="mImageQuality">-</strong></div>
+                <div class="metric-row"><span>Estimated Quality Loss</span><strong id="mQualityLoss" class="text-warning">-</strong></div>
+                <div class="metric-row"><span>Mean Squared Error (MSE)</span><strong id="mMSE">-</strong></div>
+                <div class="metric-row"><span>Peak Signal-to-Noise Ratio (PSNR)</span><strong id="mPSNR" class="text-info">-</strong></div>
+                <div class="metric-row"><span>Bits Per Pixel (BPP)</span><strong id="mBPP">-</strong></div>
+            </div>
+        </section>
+
+        <!-- Permanent Side-by-Side Presentation Workspace -->
+        <section class="viewer-workspace">
+            <div class="side-by-side-grid">
+                <div class="panel">
+                    <div class="panel-tag">Original Image</div>
+                    <div class="img-frame"><img id="sideOrigImg" alt="Original Image Preview"></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-tag target-badge">Compressed Image</div>
+                    <div class="img-frame"><img id="sideCompImg" alt="Compressed Image Preview"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
